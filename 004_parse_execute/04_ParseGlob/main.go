@@ -6,13 +6,14 @@ import (
 	"text/template"
 )
 
-func main() {
-	tpl, err := template.ParseGlob("templates/*")
-	if err != nil {
-		log.Fatalln(err)
-	}
+var tpl *template.Template
 
-	err = tpl.Execute(os.Stdout, nil)
+func init() {
+	tpl = template.Must(template.ParseGlob("templates/*"))
+}
+
+func main() {
+	err := tpl.Execute(os.Stdout, nil)
 	if err != nil {
 		log.Fatalln(err)
 	}
